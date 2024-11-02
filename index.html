@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lights Out</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            padding: 0;
+        }
+        button {
+            width: 60px;
+            height: 60px;
+            border: none;
+            margin: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:focus {
+            outline: none;
+        }
+        .restart-link {
+            display: block;
+            margin: 20px auto;
+            font-size: 16px;
+            cursor: pointer;
+            color: black;  /* Changed color to black */
+            text-decoration: none;
+            text-align: center;  /* Center the text */
+            transition: color 0.3s;
+        }
+        .restart-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Lights Out</h1>
+        <table>
+            {% for row_index, row in enumerate(board) %}
+            <tr>
+                {% for col_index, cell in enumerate(row) %}
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="row" value="{{ row_index }}">
+                        <input type="hidden" name="col" value="{{ col_index }}">
+                        <button type="submit" style="background-color: {{ 'yellow' if cell else 'black' }}"></button>
+                    </form>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('restart') }}" class="restart-link">Restart</a>
+    </div>
+</body>
+</html>
